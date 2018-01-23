@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.arscast.ireached.MainActivity"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menumain_settings"
+        android:title="@string/menumain_settings"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menumain_showAbout"
+        android:icon="@android:drawable/ic_dialog_info"
+        android:title="@string/menumain_showAbout"
+        app:showAsAction="ifRoom" />
+    <item
+        android:id="@+id/menumain_generate"
+        android:title="@string/menumain_generate"
+        android:visible="false"
+        app:showAsAction="never" />
+</menu>

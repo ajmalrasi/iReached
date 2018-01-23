@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">iReached</string>
+    <string name="start">Start</string>
+    <string name="action_settings">Settings</string>
+    <string name="menumain_settings">Settings</string>
+    <string name="menumain_showAbout">About iReached</string>
+    <string name="menumain_generate">Generate data</string>
+    <string name="dialog_name_caption">Name</string>
+    <string name="dialog_coordinates_caption">Coordinates</string>
+    <string name="dialog_vibrateonly_caption">Vibrate Only</string>
+    <string name="dialog_radius_caption">Radius</string>
+    <string name="dialog_radius_hint">In Meters</string>
+    <string name="instructions">Use the add button (+) to create new alarm.\n\nAlarms with lower sort orders will be placed higher up the list. Tasks with the same sort order will be sorted alphabetically.\n\nTapping a task will start the timer for that task (and will stop the timer for any previous task that was being timed). \n\nEach task has Edit and Delete buttons if you want to change the details or remove the task.</string>
+    <string name="instruction_heading">Instructions</string>
+    <string name="latloc">Lat <![CDATA[<font color=#FF0000>%1$f </font>Lng <font color=#FF0000>%2$f</font> ]]></string>
+    <string name="radius">Radius %d m</string>
+</resources>
