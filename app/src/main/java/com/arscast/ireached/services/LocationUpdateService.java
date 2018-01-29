@@ -97,6 +97,7 @@ public class LocationUpdateService extends Service {
 
         if ((cursor == null) || (cursor.getCount() == 0)) {
             Log.d(TAG, "onCreate: cursor null");
+            itemList = new ArrayList<>();
         } else {
 
             Log.d(TAG, "onCreate: number of rows " + cursor.getCount());

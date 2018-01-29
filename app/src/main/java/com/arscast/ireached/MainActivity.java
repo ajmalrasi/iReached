@@ -1,5 +1,6 @@
 package com.arscast.ireached;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.ContentResolver;
 import android.content.ContentValues;
@@ -16,6 +17,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.LoaderManager;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 import android.support.v7.app.AlertDialog;
@@ -81,6 +83,35 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         i.putExtra("KEY1", "Value to be used by the service");
 
 
+
+        // Here, thisActivity is the current activity
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.ACCESS_FINE_LOCATION)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            // Should we show an explanation?
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.ACCESS_FINE_LOCATION)) {
+
+                // Show an explanation to the user *asynchronously* -- don't block
+                // this thread waiting for the user's response! After the user
+                // sees the explanation, try again to request the permission.
+
+            } else {
+
+                // No explanation needed, we can request the permission.
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                        REQUEST_CODE_LOCATION);
+
+                // MY_PERMISSIONS_REQUEST_READ_CONTACTS is an
+                // app-defined int constant. The callback method gets the
+                // result of the request.
+            }
+        }
+
+
         Intent alarmIntent = getIntent();
         if (alarmIntent.hasExtra("StopAlarm")){
             if(alarmIntent.getBooleanExtra("StopAlarm",false)){
@@ -89,24 +120,18 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
 
         }else{
-            getApplicationContext().startService(i);
+            if (PERMISSION_GRANDED)
+                getApplicationContext().startService(i);
+            else
+                Snackbar.make(findViewById(R.id.mainView),"Please Grand Permission for this app to work",Snackbar.LENGTH_LONG)
+                        .setAction("Undo", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                            }
+                        }).show();
+
         }
-
-//        ActivityCompat.requestPermissions(this,new String[] {ACCESS_FINE_LOCATION},REQUEST_CODE_LOCATION);
-//        Button startService = (Button) findViewById(R.id.serviceButton);
-//
-//        startService.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                // use this to start and trigger a service
-//                Intent i= new Intent(getApplicationContext(), LocationUpdateService.class);
-//                // potentially add data to the intent
-//                i.putExtra("KEY1", "Value to be used by the service");
-//                getApplicationContext().startService(i);
-//
-//            }
-//        });
-
 
         final FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -118,12 +143,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         });
 
-//        MapAdapter adapter = new MapAdapter(this);
-//        ArrayList<MapItems> items = adapter.getMapItems();
-//        items.add();
-
-//        recyclerView.setAdapter(adapter);
-//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -154,6 +173,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
         });
 
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -186,7 +206,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             }
         }
     }
-
 
     public void startPlacePicker(){
         try {
@@ -233,7 +252,6 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
             super.onActivityResult(requestCode, resultCode, data);
         }
     }
-
 
 
     public void onLocationReceived(final Place place) {
